@@ -63,7 +63,12 @@ body { font-family: 'Outfit', sans-serif; background: #f5f3ef; color: #1a1a1a; p
   </div>
   <div class="save-bar">
     <span id="saveStatus">Changes are saved locally. Click Save to publish.</span>
-    <button onclick="saveAll()">💾 Save All Changes</button>
+    <div style="display:flex;gap:8px">
+      <button onclick="downloadData()">⬇️ Download Data</button>
+      <button onclick="document.getElementById('restoreInput').click()">⬆️ Restore Data</button>
+      <input type="file" id="restoreInput" accept=".json" style="display:none" onchange="restoreData(event)">
+      <button onclick="saveAll()">💾 Save All Changes</button>
+    </div>
   </div>
 
   <!-- Store Info -->
@@ -266,6 +271,38 @@ async function saveAll() {
     if (res.status === 401) { setStatus('Session expired. Re-login.', false); logout(); return; }
     setStatus('All changes saved!', true);
   } catch { setStatus('Save failed. Is the server running?', false); }
+}
+
+function downloadData() {
+  collectData();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'angoshree-data.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  setStatus('Data downloaded!', true);
+}
+
+async function restoreData(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  try {
+    const text = await file.text();
+    const restored = JSON.parse(text);
+    data = restored;
+    collectData();
+    const res = await fetch(API + '/api/data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': sessionStorage.getItem('ap') },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) { setStatus('Restore failed.', false); return; }
+    await loadData();
+    populateForm();
+    setStatus('Data restored!', true);
+  } catch { setStatus('Invalid JSON file.', false); }
+  event.target.value = '';
 }
 
 // Products
