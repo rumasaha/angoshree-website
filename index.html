@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Angoshree — Siliguri, West Bengal</title>
+  <meta name="description" content="Angoshree — premium sarees in Siliguri. Silk, cotton, bridal, and festive collections. Visit our store today.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="#" class="logo" id="logoLink">
+        <span class="logo-icon" id="logoIcon">✦</span>
+        <span class="logo-text" id="logoText" data-i18n="brand">Angoshree</span>
+        <span class="logo-image logo-image--nav" id="logoImageWrap" hidden>
+          <img id="logoImg" src="" alt="Angoshree">
+        </span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" data-i18n="nav.home">Home</a></li>
+        <li><a href="#gallery" data-i18n="nav.gallery">Gallery</a></li>
+        <li><a href="#products" data-i18n="nav.catalogue">Catalogue</a></li>
+        <li><a href="#offers" data-i18n="nav.offers">Offers</a></li>
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <button class="btn btn-primary nav-cta video-trigger-btn" data-i18n="nav.bookVideoCall">Book Video Call</button>
+      <button class="lang-btn" id="langSwitcherBtn" type="button">🌐 EN</button>
+      <div class="lang-dropdown" id="langDropdown">
+        <button data-lang="en">🇬🇧 English</button>
+        <button data-lang="hi">🇮🇳 हिन्दी</button>
+        <button data-lang="bn">🇮🇳 বাংলা</button>
+        <button data-lang="kn">🇮🇳 ಕನ್ನಡ</button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1610030469983-98e550c7ec8e?w=1600&q=80')"></div>
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1583391734527-fdc18f329775?w=1600&q=80')"></div>
+      <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1595777216528-069e332891ce?w=1600&q=80')"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content container">
+      <p class="hero-tag" data-i18n="hero.tag">Siliguri, West Bengal</p>
+      <h1><span data-i18n="hero.title">Timeless Elegance</span><br><em data-i18n="hero.titleEm">in Every Drape</em></h1>
+      <p class="hero-desc" data-i18n="hero.desc">Discover silk, cotton, bridal, and festive sarees at our store. A wide range for every occasion and budget.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary" data-i18n="hero.viewCatalogue">View Catalogue</a>
+        <button class="btn btn-ghost video-trigger-btn" data-i18n="hero.bookVideoCall">🎥 Book Video Call</button>
+      </div>
+    </div>
+    <div class="hero-dots" id="heroDots">
+      <button class="dot active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="dot" data-slide="1" aria-label="Slide 2"></button>
+      <button class="dot" data-slide="2" aria-label="Slide 3"></button>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container features-grid">
+      <div class="feature">
+        <div class="feature-icon">🪷</div>
+        <h3 data-i18n="features.0.title">Wide Variety</h3>
+        <p data-i18n="features.0.desc">Silk, cotton, bridal, designer, and festive sarees for every taste and budget.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">✨</div>
+        <h3 data-i18n="features.1.title">Quality Assured</h3>
+        <p data-i18n="features.1.desc">Every saree is carefully selected for fabric, weave, and finishing.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🏪</div>
+        <h3 data-i18n="features.2.title">Visit Our Store</h3>
+        <p data-i18n="features.2.desc">Walk in, feel the fabric, and find your perfect saree with personal guidance.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🕐</div>
+        <h3 data-i18n="features.3.title">Open Daily</h3>
+        <p data-i18n="features.3.desc">Open every day from 10 AM to 8 PM. We're here when you need us.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag" data-i18n="gallery.tag">Gallery</p>
+        <h2 data-i18n="gallery.title">A Glimpse of Our World</h2>
+      </div>
+      <div class="gallery-slideshow">
+        <button class="gallery-arrow gallery-arrow--prev" id="galleryPrev" type="button" aria-label="Previous photo">&lsaquo;</button>
+        <div class="gallery-viewer" id="galleryViewer">
+          <p class="gallery-empty" id="galleryEmpty" data-i18n="gallery.addPhotos">Add photos to get started</p>
+          <img id="galleryImage" src="" alt="Gallery photo" hidden>
+        </div>
+        <button class="gallery-arrow gallery-arrow--next" id="galleryNext" type="button" aria-label="Next photo">&rsaquo;</button>
+      </div>
+      <div class="gallery-bar">
+        <span id="galleryCounter">0 / 0</span>
+      </div>
+      <div class="gallery-video" id="galleryVideoWrap" hidden>
+        <h3 data-i18n="gallery.videoTitle">Watch Our Collection</h3>
+        <div class="video-slideshow">
+          <button class="video-arrow video-arrow--prev" id="videoPrev" type="button" aria-label="Previous video">&lsaquo;</button>
+          <div class="video-viewer" id="videoViewer">
+            <p class="video-empty" id="videoEmpty" data-i18n="gallery.noVideos">No videos uploaded yet</p>
+            <video id="videoPlayer" controls playsinline preload="metadata" width="100%" hidden>
+              <source id="videoSource" src="" type="video/mp4">
+            </video>
+          </div>
+          <button class="video-arrow video-arrow--next" id="videoNext" type="button" aria-label="Next video">&rsaquo;</button>
+        </div>
+        <div class="video-bar">
+          <span id="videoCounter">0 / 0</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products" id="products">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag" data-i18n="products.tag">Catalogue</p>
+        <h2 data-i18n="products.title">Featured Sarees</h2>
+        <p class="section-desc" data-i18n="products.desc">Browse our collection below. Visit the store to see more — prices and availability may vary.</p>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all" data-i18n="products.all">All</button>
+        <button class="filter-btn" data-filter="silk" data-i18n="products.silk">Silk</button>
+        <button class="filter-btn" data-filter="cotton" data-i18n="products.cotton">Cotton</button>
+        <button class="filter-btn" data-filter="bridal" data-i18n="products.bridal">Bridal</button>
+        <button class="filter-btn" data-filter="designer" data-i18n="products.designer">Designer</button>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+    </div>
+  </section>
+
+  <!-- Video Call CTA Section -->
+  <section class="video-call-cta-section">
+    <div class="container video-cta-grid">
+      <div class="video-cta-content">
+        <span class="section-tag" data-i18n="videoCta.tag">Shop Live from Home</span>
+        <h2 data-i18n="videoCta.title">Experience Our Siliguri Store<br>on a Personal Video Call</h2>
+        <p data-i18n="videoCta.desc">Can't visit our store in person? Let our personal shoppers show you our exclusive silks, light cottons, and bridal collections live on a WhatsApp video call. Touch, feel, and see the drape quality from the comfort of your home.</p>
+        <button class="btn btn-primary video-trigger-btn" data-i18n="videoCta.button">Schedule Your Free Video Call Now</button>
+      </div>
+      <div class="video-cta-image-wrapper">
+        <img id="videoCtaImg" src="https://images.unsplash.com/photo-1595777216528-069e332891ce?w=800&q=80" alt="Video Call saree shopping representation" class="video-cta-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-images">
+        <img src="https://images.unsplash.com/photo-1617629631168-51353d1b9c3e?w=600&q=80" alt="Weaver at work" class="about-img-main">
+        <img src="https://images.unsplash.com/photo-1583391734527-fdc18f329775?w=400&q=80" alt="Saree detail" class="about-img-accent">
+        <div class="about-badge">
+          <span class="about-badge-num" data-i18n="about.badgeNum">5+</span>
+          <span class="about-badge-text" data-i18n="about.badgeText">Years Serving<br>Siliguri</span>
+        </div>
+      </div>
+      <div class="about-content">
+        <p class="section-tag" data-i18n="about.tag">Our Story</p>
+        <h2 data-i18n="about.title">Angoshree — Your Trusted<br>Saree Destination in Siliguri</h2>
+        <p data-i18n="about.p1">Welcome to Angoshree, our saree shop in the heart of Siliguri, West Bengal. For the past few years, we've been helping customers find the perfect saree — whether it's for a wedding, festival, or everyday elegance.</p>
+        <p data-i18n="about.p2">From rich Bengali tant and silk to bridal reds and contemporary designs, we curate sarees that celebrate tradition while fitting modern tastes. Walk into our store and experience the fabrics firsthand.</p>
+        <ul class="about-stats">
+          <li><strong data-i18n="about.stat1Num">50+</strong><span data-i18n="about.stat1">Saree Styles</span></li>
+          <li><strong data-i18n="about.stat2Num">1000+</strong><span data-i18n="about.stat2">Happy Customers</span></li>
+          <li><strong data-i18n="about.stat3Num">All</strong><span data-i18n="about.stat3">Occasions Covered</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag" data-i18n="testimonials.tag">Testimonials</p>
+        <h2 data-i18n="testimonials.title">What Our Customers Say</h2>
+      </div>
+      <div class="testimonials-grid">
+        <blockquote class="testimonial">
+          <p data-i18n="testimonials.items.0.quote">"Found the most beautiful tant saree for Durga Puja. The staff helped me pick the perfect colour — felt so welcome in the store!"</p>
+          <footer>
+            <strong data-i18n="testimonials.items.0.name">Customer Name</strong>
+            <span data-i18n="testimonials.location">Siliguri</span>
+          </footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p data-i18n="testimonials.items.1.quote">"Bought my wedding saree here. Great quality, fair prices, and they had so many options to choose from. Highly recommend visiting."</p>
+          <footer>
+            <strong data-i18n="testimonials.items.1.name">Customer Name</strong>
+            <span data-i18n="testimonials.location">Siliguri</span>
+          </footer>
+        </blockquote>
+        <blockquote class="testimonial">
+          <p data-i18n="testimonials.items.2.quote">"Love their cotton collection for daily wear. Good variety from budget to premium — something for everyone in the family."</p>
+          <footer>
+            <strong data-i18n="testimonials.items.2.name">Customer Name</strong>
+            <span data-i18n="testimonials.location">Siliguri</span>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Offers -->
+  <section class="offers" id="offers">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-tag" data-i18n="offers.tag">Offers & Trends</p>
+        <h2 data-i18n="offers.title">Current Offers & Festive Favourites</h2>
+        <p class="section-desc" data-i18n="offers.desc">Check out the latest discounts, festive collections, and trending sarees picked just for you.</p>
+      </div>
+      <div class="offers-grid" id="offersGrid">    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="container contact-grid">
+      <div class="contact-info">
+        <p class="section-tag" data-i18n="contact.tag">Get in Touch</p>
+        <h2 data-i18n="contact.title">Visit Our Store<br>or Reach Out</h2>
+        <p data-i18n="contact.desc">We'd love to help you find your perfect saree. Walk into our store or send us a message — our team responds within 24 hours.</p>
+        <ul class="contact-details">
+          <li>
+            <span class="contact-icon">📍</span>
+            <div>
+              <strong data-i18n="contact.address">Address</strong>
+              <p id="storeAddress">Your Street Address, Siliguri, West Bengal 734001</p>
+              <a id="storeMap" href="#" target="_blank" rel="noopener" style="font-size:0.85rem" data-i18n="contact.viewMap">View on Google Maps →</a>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon">📞</span>
+            <div>
+              <strong data-i18n="contact.phone">Phone</strong>
+              <p id="storePhone">+91 XXXXX XXXXX</p>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon">💬</span>
+            <div>
+              <strong data-i18n="contact.whatsapp">WhatsApp</strong>
+              <p>+91 XXXXX XXXXX</p>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon">✉️</span>
+            <div>
+              <strong data-i18n="contact.email">Email</strong>
+              <a id="storeEmail" href="mailto:hello@angoshree.com">hello@angoshree.com</a>
+            </div>
+          </li>
+          <li>
+            <span class="contact-icon">🕐</span>
+            <div>
+              <strong data-i18n="contact.storeHours">Store Hours</strong>
+              <p data-i18n="contact.hoursText">Open Daily: 10 AM – 8 PM</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <h3 data-i18n="contact.formTitle">Send a Message</h3>
+        <div class="form-group">
+          <label for="name" data-i18n="contact.formName">Your Name</label>
+          <input type="text" id="name" name="name" required data-i18n-placeholder="placeholders.name">
+        </div>
+        <div class="form-group">
+          <label for="email" data-i18n="contact.formEmail">Email Address</label>
+          <input type="email" id="email" name="email" required data-i18n-placeholder="placeholders.email">
+        </div>
+        <div class="form-group">
+          <label for="phone" data-i18n="contact.formPhone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" data-i18n-placeholder="placeholders.phone">
+        </div>
+        <div class="form-group">
+          <label for="message" data-i18n="contact.formMessage">Message</label>
+          <textarea id="message" name="message" rows="4" required data-i18n-placeholder="placeholders.message"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" data-i18n="contact.formSend">Send Message</button>
+        <p class="form-success" id="formSuccess" hidden data-i18n="contact.formSuccess">Thank you! We'll get back to you soon.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo" id="footerLogoLink">
+          <span class="logo-icon" id="footerLogoIcon">✦</span>
+          <span class="logo-text" id="footerLogoText" data-i18n="brand">Angoshree</span>
+          <span class="logo-image logo-image--footer" id="footerLogoImageWrap" hidden>
+            <img id="footerLogoImg" src="" alt="Angoshree">
+          </span>
+        </a>
+        <p data-i18n="footer.desc">Premium sarees in Siliguri, West Bengal. Angoshree — celebrating Bengali tradition, one drape at a time.</p>
+        <div class="social-links">
+          <a href="#" id="socialInstagram" aria-label="Instagram" target="_blank" rel="noopener">Instagram</a>
+          <a href="#" id="socialFacebook" aria-label="Facebook" target="_blank" rel="noopener">Facebook</a>
+          <a href="#" id="socialYoutube" aria-label="YouTube" target="_blank" rel="noopener">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4 data-i18n="footer.quickLinks">Quick Links</h4>
+        <ul>
+          <li><a href="#gallery" data-i18n="footer.quickGallery">Gallery</a></li>
+          <li><a href="#products" data-i18n="footer.quickCatalogue">Catalogue</a></li>
+          <li><a href="#about" data-i18n="footer.quickAbout">About Us</a></li>
+          <li><a href="#contact" data-i18n="footer.quickContact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4 data-i18n="footer.categories">Categories</h4>
+        <ul>
+          <li><a href="#products" data-filter="silk" data-i18n="footer.catSilk">Silk Sarees</a></li>
+          <li><a href="#products" data-filter="cotton" data-i18n="footer.catCotton">Cotton Sarees</a></li>
+          <li><a href="#products" data-filter="bridal" data-i18n="footer.catBridal">Bridal</a></li>
+          <li><a href="#products" data-filter="designer" data-i18n="footer.catDesigner">Designer</a></li>
+        </ul>
+      </div>
+      <div class="footer-newsletter">
+        <h4 data-i18n="footer.newsletter">Stay Updated</h4>
+        <p data-i18n="footer.newsletterDesc">Subscribe for new arrivals and exclusive offers.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <input type="email" data-i18n-placeholder="footer.newsletterPlaceholder" required>
+          <button type="submit" class="btn btn-primary" data-i18n="footer.newsletterBtn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p data-i18n="footer.copyright">&copy; 2026 Angoshree. All rights reserved.</p>
+      <p data-i18n="footer.location">Siliguri, West Bengal</p>
+    </div>
+  </footer>
+
+  <a href="#" class="whatsapp-float" id="whatsappFloat" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <div class="video-modal-overlay" id="videoModalOverlay" hidden>
+    <div class="video-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="video-modal-close" id="videoModalClose" aria-label="Close modal">&times;</button>
+      <h3 id="modalTitle" data-i18n="videoModal.title">Request Saree Video Call</h3>
+      <p class="video-modal-desc" data-i18n="videoModal.desc">See fabrics, patterns, and drape quality live from our Siliguri store on a WhatsApp Video Call.</p>
+      
+      <form class="video-modal-form" id="videoCallForm">
+        <div class="form-group">
+          <label for="videoName" data-i18n="videoModal.name">Your Name</label>
+          <input type="text" id="videoName" name="name" required data-i18n-placeholder="placeholders.videoName">
+        </div>
+        <div class="form-group">
+          <label for="videoEmail" data-i18n="videoModal.email">Email Address</label>
+          <input type="email" id="videoEmail" name="email" required data-i18n-placeholder="placeholders.email">
+        </div>
+        <div class="form-group">
+          <label for="videoPhone" data-i18n="videoModal.phone">WhatsApp / Phone Number</label>
+          <input type="tel" id="videoPhone" name="phone" required data-i18n-placeholder="placeholders.phone">
+        </div>
+        <div class="form-group">
+          <label for="videoDate" data-i18n="videoModal.date">Preferred Date</label>
+          <input type="date" id="videoDate" name="date" required>
+        </div>
+        <div class="form-group">
+          <label for="videoTime" data-i18n="videoModal.time">Preferred Time Slot</label>
+          <select id="videoTime" name="time" required></select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full" data-i18n="videoModal.book">Book Free Consultation</button>
+      </form>
+      
+      <div class="video-modal-success" id="videoSuccessMsg" hidden>
+        <div class="success-icon">✨</div>
+        <h4 data-i18n="videoModal.successTitle">Booking Requested!</h4>
+        <p id="successDesc">Thank you, <strong id="successCustomerName"></strong>. We will contact you at <strong id="successCustomerPhone"></strong> on WhatsApp shortly to schedule your live saree showcase.</p>
+        <button type="button" class="btn btn-outline btn-full" id="successCloseBtn" data-i18n="videoModal.successClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/translations.js?v=2"></script>
+  <script src="js/main.js?v=2"></script>
+</body>
+</html>

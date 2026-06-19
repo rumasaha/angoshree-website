@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Angoshree — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Outfit', sans-serif; background: #f5f3ef; color: #1a1a1a; padding: 24px; }
+.login-screen { max-width: 360px; margin: 80px auto; text-align: center; }
+.login-screen h1 { font-size: 1.5rem; margin-bottom: 8px; }
+.login-screen p { color: #666; margin-bottom: 24px; font-size: 0.9rem; }
+.login-screen input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; margin-bottom: 12px; }
+.login-screen button { width: 100%; padding: 12px; background: #6F1028; color: #fff; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; }
+.login-screen .error { color: #c00; font-size: 0.85rem; margin-top: 8px; }
+.dashboard { max-width: 960px; margin: 0 auto; }
+.dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.dashboard-header h1 { font-size: 1.5rem; }
+.dashboard-header .logout { padding: 8px 16px; background: #ddd; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
+.save-bar { position: sticky; top: 0; z-index: 10; background: #6F1028; color: #fff; padding: 12px 24px; border-radius: 8px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; }
+.save-bar button { padding: 8px 20px; background: #D9A928; color: #1a1a1a; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+.save-bar .status { font-size: 0.85rem; opacity: 0.9; }
+.section { background: #fff; border-radius: 8px; padding: 24px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+.section h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #eee; }
+.section label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 4px; color: #555; }
+.section input, .section textarea, .section select { width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 0.9rem; margin-bottom: 12px; font-family: inherit; }
+.section textarea { resize: vertical; min-height: 60px; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.item-card { background: #faf9f7; border: 1px solid #eee; border-radius: 6px; padding: 16px; margin-bottom: 12px; }
+.item-card .item-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px; }
+.item-card .item-header strong { font-size: 0.95rem; }
+.item-card .item-actions { display: flex; gap: 6px; }
+.item-card .item-actions button { padding: 4px 10px; border: 1px solid #ddd; border-radius: 4px; background: #fff; cursor: pointer; font-size: 0.8rem; }
+.item-card .item-actions .del { color: #c00; border-color: #fcc; }
+.item-card .item-actions .edit { color: #06c; border-color: #bdf; }
+.item-card .item-thumb { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; margin-right: 12px; }
+.item-card .item-fields { display: none; margin-top: 12px; }
+.item-card .item-fields.open { display: block; }
+.add-btn { padding: 8px 16px; background: #6F1028; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; margin-bottom: 12px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; margin-bottom: 12px; }
+.gallery-grid .thumb { position: relative; aspect-ratio: 1; border-radius: 4px; overflow: hidden; }
+.gallery-grid .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-grid .thumb .del { position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; border: none; background: rgba(0,0,0,0.6); color: #fff; font-size: 0.8rem; cursor: pointer; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div id="loginScreen" class="login-screen">
+  <h1>🔐 Angoshree Admin</h1>
+  <p>Enter the admin password to manage your store.</p>
+  <input type="password" id="passwordInput" placeholder="Password" onkeydown="if(event.key==='Enter')login()">
+  <button onclick="login()">Login</button>
+  <p class="error hidden" id="loginError">Wrong password</p>
+</div>
+
+<div id="dashboard" class="dashboard hidden">
+  <div class="dashboard-header">
+    <h1>⚙️ Angoshree — Admin Panel</h1>
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+  <div class="save-bar">
+    <span id="saveStatus">Changes are saved locally. Click Save to publish.</span>
+    <button onclick="saveAll()">💾 Save All Changes</button>
+  </div>
+
+  <!-- Store Info -->
+  <div class="section">
+    <h2>Store Info</h2>
+    <label>WhatsApp Number (without +, just digits e.g. 9198XXXXXXXX)</label>
+    <input id="storeWhatsapp" placeholder="91XXXXXXXXXX">
+    <label>Time Slots (one per line)</label>
+    <textarea id="timeSlots" rows="4"></textarea>
+    <label style="margin-top:12px;display:block">Social Links</label>
+    <div class="row">
+      <div><label>Instagram URL</label><input id="socialInstagram" placeholder="https://instagram.com/angoshree"></div>
+      <div><label>Facebook URL</label><input id="socialFacebook" placeholder="https://facebook.com/angoshree"></div>
+    </div>
+    <div class="row">
+      <div><label>YouTube URL</label><input id="socialYoutube" placeholder="https://youtube.com/@angoshree"></div>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- Logo -->
+  <div class="section">
+    <h2>Logo</h2>
+    <label>Display</label>
+    <select id="logoType">
+      <option value="text">Text (Angoshree name)</option>
+      <option value="image">Image (your uploaded design)</option>
+    </select>
+    <div class="row">
+      <div><label>Font Family</label><input id="logoFont" placeholder="e.g. Cormorant Garamond, serif"></div>
+      <div><label>Font Size</label><input id="logoSize" placeholder="e.g. 2rem" value="2rem"></div>
+    </div>
+    <label style="margin-top:8px;display:block">Custom Font (upload .ttf from Calligraphr or similar)</label>
+    <div style="display:flex;gap:8px;margin-bottom:6px">
+      <input id="logoFontUrl" placeholder="uploads/your-font.woff2" style="margin-bottom:0">
+      <button class="add-btn" style="white-space:nowrap;flex-shrink:0" onclick="document.getElementById('fontUpload').click()">Upload Font</button>
+    </div>
+    <input type="file" id="fontUpload" accept=".ttf,.otf,.woff,.woff2" hidden onchange="uploadFont(this)">
+    <label style="margin-top:12px;display:block">Logo Image (optional — upload your design)</label>
+    <div style="display:flex;gap:8px">
+      <input id="logoImage" placeholder="https://example.com/logo.png" style="margin-bottom:0">
+      <button class="add-btn" style="white-space:nowrap;flex-shrink:0" onclick="document.getElementById('logoUpload').click()">Upload</button>
+    </div>
+    <input type="file" id="logoUpload" accept="image/*" hidden onchange="uploadLogo(this)">
+  </div>
+
+  <!-- Contact Info -->
+  <div class="section">
+    <h2>Contact Info</h2>
+    <label>Address</label>
+    <input id="contactAddress">
+    <label style="margin-top:8px">Google Maps Link</label>
+    <input id="contactMapsUrl" placeholder="https://maps.app.goo.gl/...">
+    <div class="row">
+      <div><label>Phone</label><input id="contactPhone"></div>
+      <div><label>WhatsApp</label><input id="contactWhatsapp"></div>
+    </div>
+    <div class="row">
+      <div><label>Email</label><input id="contactEmail"></div>
+      <div><label>Store Hours</label><input id="contactHours"></div>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <div class="section">
+    <h2>About Images</h2>
+    <label>Main Image</label>
+    <div style="display:flex;gap:8px">
+      <input id="aboutMainImage" placeholder="https://example.com/main.jpg" style="margin-bottom:0">
+      <button class="add-btn" style="white-space:nowrap;flex-shrink:0" onclick="document.getElementById('aboutMainUpload').click()">Upload</button>
+    </div>
+    <input type="file" id="aboutMainUpload" accept="image/*" hidden onchange="uploadAboutImage(this, 'main')">
+    <label style="margin-top:12px;display:block">Accent Image (smaller, bottom-right overlay)</label>
+    <div style="display:flex;gap:8px">
+      <input id="aboutAccentImage" placeholder="https://example.com/accent.jpg" style="margin-bottom:0">
+      <button class="add-btn" style="white-space:nowrap;flex-shrink:0" onclick="document.getElementById('aboutAccentUpload').click()">Upload</button>
+    </div>
+    <input type="file" id="aboutAccentUpload" accept="image/*" hidden onchange="uploadAboutImage(this, 'accent')">
+    <label style="margin-top:12px;display:block">Video Call CTA Image</label>
+    <div style="display:flex;gap:8px">
+      <input id="videoCtaImage" placeholder="https://example.com/cta.jpg" style="margin-bottom:0">
+      <button class="add-btn" style="white-space:nowrap;flex-shrink:0" onclick="document.getElementById('videoCtaUpload').click()">Upload</button>
+    </div>
+    <input type="file" id="videoCtaUpload" accept="image/*" hidden onchange="uploadAboutImage(this, 'videocta')">
+  </div>
+
+  <div class="section">
+    <h2>Products</h2>
+    <button class="add-btn" onclick="addProduct()">+ Add Product</button>
+    <div id="productsList"></div>
+  </div>
+
+  <!-- Gallery -->
+  <div class="section">
+    <h2>Gallery Photos</h2>
+    <button class="add-btn" onclick="document.getElementById('galleryUpload').click()">+ Upload Photos</button>
+    <input type="file" id="galleryUpload" accept="image/*" multiple hidden onchange="uploadGalleryImages(this)">
+    <div class="gallery-grid" id="galleryGrid"></div>
+    <label>Or paste image URLs (one per line)</label>
+    <textarea id="galleryUrls" rows="3" placeholder="https://..."></textarea>
+    <label style="margin-top:12px;display:block">Gallery Videos (MP4 URLs, one per line — newest first)</label>
+    <textarea id="galleryVideos" rows="4" placeholder="https://example.com/video1.mp4"></textarea>
+    <button class="add-btn" style="margin-top:6px" onclick="document.getElementById('videoUpload').click()">+ Upload Videos</button>
+    <input type="file" id="videoUpload" accept="video/*" multiple hidden onchange="uploadVideos(this)">
+  </div>
+
+  <!-- Offers -->
+  <div class="section">
+    <h2>Offers</h2>
+    <button class="add-btn" onclick="addOffer()">+ Add Offer</button>
+    <div id="offersList"></div>
+  </div>
+</div>
+
+<script>
+const API = '';
+let data = {};
+
+async function loadData() {
+  try {
+    const res = await fetch(API + '/api/data');
+    data = await res.json();
+  } catch { data = {}; }
+}
+
+function populateForm() {
+  document.getElementById('storeWhatsapp').value = data.storeWhatsapp || '';
+  document.getElementById('timeSlots').value = (data.timeSlots || []).join('\n');
+  document.getElementById('contactAddress').value = data.contact?.address || '';
+  document.getElementById('contactMapsUrl').value = data.contact?.mapsUrl || '';
+  document.getElementById('contactPhone').value = data.contact?.phone || '';
+  document.getElementById('contactWhatsapp').value = data.contact?.whatsapp || '';
+  document.getElementById('contactEmail').value = data.contact?.email || '';
+  document.getElementById('contactHours').value = data.contact?.hours || '';
+  document.getElementById('aboutMainImage').value = data.aboutImages?.main || '';
+  document.getElementById('aboutAccentImage').value = data.aboutImages?.accent || '';
+  document.getElementById('videoCtaImage').value = data.videoCtaImage || '';
+  document.getElementById('galleryVideos').value = (data.galleryVideos || []).join('\n');
+  const logo = data.logo || {};
+  document.getElementById('logoType').value = logo.type || 'text';
+  document.getElementById('logoImage').value = logo.image || '';
+  document.getElementById('logoFont').value = logo.fontFamily || '';
+  document.getElementById('logoSize').value = logo.fontSize || '2rem';
+  document.getElementById('logoFontUrl').value = logo.fontUrl || '';
+  const s = data.social || {};
+  document.getElementById('socialInstagram').value = s.instagram || '';
+  document.getElementById('socialFacebook').value = s.facebook || '';
+  document.getElementById('socialYoutube').value = s.youtube || '';
+  renderProducts();
+  renderGallery();
+  renderOffers();
+}
+
+function collectData() {
+  data.storeWhatsapp = document.getElementById('storeWhatsapp').value.trim();
+  data.timeSlots = document.getElementById('timeSlots').value.split('\n').map(s => s.trim()).filter(Boolean);
+  data.contact = {
+    address: document.getElementById('contactAddress').value.trim(),
+    mapsUrl: document.getElementById('contactMapsUrl').value.trim(),
+    phone: document.getElementById('contactPhone').value.trim(),
+    whatsapp: document.getElementById('contactWhatsapp').value.trim(),
+    email: document.getElementById('contactEmail').value.trim(),
+    hours: document.getElementById('contactHours').value.trim(),
+  };
+  data.aboutImages = {
+    main: document.getElementById('aboutMainImage').value.trim(),
+    accent: document.getElementById('aboutAccentImage').value.trim(),
+  };
+  data.videoCtaImage = document.getElementById('videoCtaImage').value.trim();
+  data.galleryVideos = document.getElementById('galleryVideos').value.split('\n').map(s => s.trim()).filter(Boolean);
+  data.logo = {
+    type: document.getElementById('logoType').value,
+    image: document.getElementById('logoImage').value.trim(),
+    fontFamily: document.getElementById('logoFont').value.trim(),
+    fontSize: document.getElementById('logoSize').value.trim(),
+    fontUrl: document.getElementById('logoFontUrl').value.trim(),
+  };
+  data.social = {
+    instagram: document.getElementById('socialInstagram').value.trim(),
+    facebook: document.getElementById('socialFacebook').value.trim(),
+    youtube: document.getElementById('socialYoutube').value.trim(),
+  };
+  return data;
+}
+
+function setStatus(msg, ok) {
+  document.getElementById('saveStatus').textContent = msg;
+  document.getElementById('saveStatus').style.color = ok ? '#8f8' : '#fff';
+  setTimeout(() => { document.getElementById('saveStatus').style.color = '#fff'; }, 3000);
+}
+
+async function saveAll() {
+  collectData();
+  try {
+    const res = await fetch(API + '/api/data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-password': sessionStorage.getItem('ap') },
+      body: JSON.stringify(data),
+    });
+    if (res.status === 401) { setStatus('Session expired. Re-login.', false); logout(); return; }
+    setStatus('All changes saved!', true);
+  } catch { setStatus('Save failed. Is the server running?', false); }
+}
+
+// Products
+function renderProducts() {
+  const list = document.getElementById('productsList');
+  list.innerHTML = (data.products || []).map((p, i) => `
+    <div class="item-card">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;gap:12px">
+          <img src="${p.image}" class="item-thumb" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><rect fill=%22%23eee%22 width=%2260%22 height=%2260%22/></svg>'">
+          <div><strong>${p.name}</strong><br><span style="font-size:0.8rem;color:#888">${p.category}</span></div>
+        </div>
+        <div class="item-actions">
+          <button class="edit" onclick="toggleFields(this)">Edit</button>
+          <button class="del" onclick="deleteProduct(${i})">Delete</button>
+        </div>
+      </div>
+      <div class="item-fields">
+        <div class="row-3">
+          <div><label>Name</label><input value="${esc(p.name)}" onchange="data.products[${i}].name=this.value"></div>
+          <div><label>Category</label>
+            <select onchange="data.products[${i}].category=this.value">
+              ${['silk','cotton','bridal','designer'].map(c => `<option ${p.category===c?'selected':''}>${c}</option>`).join('')}
+            </select>
+          </div>
+          <div><label>Badge</label><input value="${esc(p.badge||'')}" onchange="data.products[${i}].badge=this.value||null"></div>
+        </div>
+        <div><label>Image URL</label><input value="${esc(p.image)}" onchange="data.products[${i}].image=this.value;renderProducts()"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addProduct() {
+  if (!data.products) data.products = [];
+  data.products.push({ id: Date.now(), name: 'New Saree', category: 'silk', image: 'https://images.unsplash.com/photo-1610030469983-98e550c7ec8e?w=500&q=80', badge: null });
+  renderProducts();
+}
+
+function deleteProduct(i) {
+  if (!confirm('Delete this product?')) return;
+  data.products.splice(i, 1);
+  renderProducts();
+}
+
+// Gallery
+function renderGallery() {
+  const grid = document.getElementById('galleryGrid');
+  const urls = document.getElementById('galleryUrls');
+  const imgs = data.galleryImages || [];
+  grid.innerHTML = imgs.map((url, i) => `
+    <div class="thumb">
+      <img src="${url}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%23eee%22 width=%22100%22 height=%22100%22/></svg>'">
+      <button class="del" onclick="deleteGallery(${i})">×</button>
+    </div>
+  `).join('');
+  urls.value = imgs.join('\n');
+}
+
+function deleteGallery(i) {
+  data.galleryImages.splice(i, 1);
+  renderGallery();
+}
+
+document.getElementById('galleryUrls').addEventListener('input', function() {
+  data.galleryImages = this.value.split('\n').map(s => s.trim()).filter(Boolean);
+  renderGallery();
+});
+
+async function uploadGalleryImages(input) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+  const formData = new FormData();
+  files.forEach(f => formData.append('images', f));
+  try {
+    const res = await fetch(API + '/api/upload-multiple', {
+      method: 'POST',
+      headers: { 'x-admin-password': sessionStorage.getItem('ap') },
+      body: formData,
+    });
+    if (res.status === 401) { alert('Session expired. Re-login.'); logout(); return; }
+    const result = await res.json();
+    if (result.urls) {
+      if (!data.galleryImages) data.galleryImages = [];
+      data.galleryImages.push(...result.urls);
+      renderGallery();
+      setStatus('Photos uploaded! Save to keep.', true);
+    }
+  } catch { alert('Upload failed.'); }
+  input.value = '';
+}
+
+async function uploadVideos(input) {
+  const files = Array.from(input.files);
+  if (!files.length) return;
+  const formData = new FormData();
+  files.forEach(f => formData.append('images', f));
+  try {
+    const res = await fetch(API + '/api/upload-multiple', {
+      method: 'POST',
+      headers: { 'x-admin-password': sessionStorage.getItem('ap') },
+      body: formData,
+    });
+    if (res.status === 401) { alert('Session expired. Re-login.'); logout(); return; }
+    const result = await res.json();
+    if (result.urls) {
+      if (!data.galleryVideos) data.galleryVideos = [];
+      data.galleryVideos.unshift(...result.urls);
+      document.getElementById('galleryVideos').value = data.galleryVideos.join('\n');
+      setStatus('Videos uploaded! Save to keep.', true);
+    }
+  } catch { alert('Upload failed.'); }
+  input.value = '';
+}
+
+async function uploadFont(input) {
+  const file = input.files?.[0];
+  if (!file) return;
+  const formData = new FormData();
+  formData.append('font', file);
+  try {
+    const res = await fetch(API + '/api/upload-font', {
+      method: 'POST',
+      headers: { 'x-admin-password': sessionStorage.getItem('ap') },
+      body: formData,
+    });
+    if (res.status === 401) { alert('Session expired. Re-login.'); logout(); return; }
+    const result = await res.json();
+    if (result.url) {
+      document.getElementById('logoFontUrl').value = result.url;
+      setStatus('Font uploaded! Save to keep.', true);
+    }
+  } catch { alert('Upload failed.'); }
+  input.value = '';
+}
+
+async function uploadLogo(input) {
+  const file = input.files?.[0];
+  if (!file) return;
+  const formData = new FormData();
+  formData.append('image', file);
+  try {
+    const res = await fetch(API + '/api/upload', {
+      method: 'POST',
+      headers: { 'x-admin-password': sessionStorage.getItem('ap') },
+      body: formData,
+    });
+    if (res.status === 401) { alert('Session expired. Re-login.'); logout(); return; }
+    const result = await res.json();
+    if (result.url) {
+      document.getElementById('logoImage').value = result.url;
+      setStatus('Logo uploaded! Save to keep.', true);
+    }
+  } catch { alert('Upload failed.'); }
+  input.value = '';
+}
+
+async function uploadAboutImage(input, type) {
+  const file = input.files?.[0];
+  if (!file) return;
+  const formData = new FormData();
+  formData.append('image', file);
+  try {
+    const res = await fetch(API + '/api/upload', {
+      method: 'POST',
+      headers: { 'x-admin-password': sessionStorage.getItem('ap') },
+      body: formData,
+    });
+    if (res.status === 401) { alert('Session expired. Re-login.'); logout(); return; }
+    const result = await res.json();
+    if (result.url) {
+      const id = type === 'main' ? 'aboutMainImage' : type === 'accent' ? 'aboutAccentImage' : 'videoCtaImage';
+      document.getElementById(id).value = result.url;
+      setStatus('Image uploaded! Save to keep.', true);
+    }
+  } catch { alert('Upload failed.'); }
+  input.value = '';
+}
+
+// Offers
+function renderOffers() {
+  const list = document.getElementById('offersList');
+  list.innerHTML = (data.offers || []).map((o, i) => `
+    <div class="item-card">
+      <div class="item-header">
+        <div style="display:flex;align-items:center;gap:12px">
+          <img src="${o.image}" class="item-thumb" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><rect fill=%22%23eee%22 width=%2260%22 height=%2260%22/></svg>'">
+          <div><strong>${o.title}</strong><br><span style="font-size:0.8rem;color:#888">${o.badge||''}</span></div>
+        </div>
+        <div class="item-actions">
+          <button class="edit" onclick="toggleFields(this)">Edit</button>
+          <button class="del" onclick="deleteOffer(${i})">Delete</button>
+        </div>
+      </div>
+      <div class="item-fields">
+        <div class="row">
+          <div><label>Title</label><input value="${esc(o.title)}" onchange="data.offers[${i}].title=this.value;renderOffers()"></div>
+          <div><label>Badge</label><input value="${esc(o.badge||'')}" onchange="data.offers[${i}].badge=this.value||null"></div>
+        </div>
+        <div><label>Description</label><textarea onchange="data.offers[${i}].description=this.value">${esc(o.description)}</textarea></div>
+        <div><label>Image URL</label><input value="${esc(o.image)}" onchange="data.offers[${i}].image=this.value;renderOffers()"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addOffer() {
+  if (!data.offers) data.offers = [];
+  data.offers.push({ id: Date.now(), title: 'New Offer', description: 'Description here', image: 'https://images.unsplash.com/photo-1610030469983-98e550c7ec8e?w=500&q=80', badge: 'New' });
+  renderOffers();
+}
+
+function deleteOffer(i) {
+  if (!confirm('Delete this offer?')) return;
+  data.offers.splice(i, 1);
+  renderOffers();
+}
+
+// Helpers
+function esc(s) { return String(s).replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function toggleFields(btn) {
+  const fields = btn.closest('.item-card').querySelector('.item-fields');
+  fields.classList.toggle('open');
+  btn.textContent = fields.classList.contains('open') ? 'Done' : 'Edit';
+}
+
+// Login
+async function login() {
+  const pass = document.getElementById('passwordInput').value;
+  try {
+    const res = await fetch(API + '/api/data', { headers: { 'x-admin-password': pass } });
+    if (res.status === 401) { document.getElementById('loginError').classList.remove('hidden'); return; }
+    document.getElementById('loginError').classList.add('hidden');
+    sessionStorage.setItem('ap', pass);
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('dashboard').classList.remove('hidden');
+    await loadData();
+    populateForm();
+  } catch { alert('Cannot connect to server.'); }
+}
+
+function logout() {
+  sessionStorage.removeItem('ap');
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('dashboard').classList.add('hidden');
+  document.getElementById('passwordInput').value = '';
+}
+
+// Check saved session
+(async function init() {
+  const saved = sessionStorage.getItem('ap');
+  if (saved) {
+    try {
+      const res = await fetch(API + '/api/data', { headers: { 'x-admin-password': saved } });
+      if (res.ok) {
+        document.getElementById('loginScreen').classList.add('hidden');
+        document.getElementById('dashboard').classList.remove('hidden');
+        await loadData();
+        populateForm();
+        return;
+      }
+    } catch {}
+    sessionStorage.removeItem('ap');
+  }
+})();
+</script>
+</body>
+</html>
