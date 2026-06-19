@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
   <defs>
     <style>
-      .c1 { fill: none; stroke: #A97808; stroke-width: 0.6; opacity: 0.08; }
-      .c2 { fill: none; stroke: #6F1028; stroke-width: 0.5; opacity: 0.05; }
-      .c3 { fill: #D9A928; opacity: 0.06; }
-      .c4 { fill: none; stroke: #D9A928; stroke-width: 0.4; opacity: 0.06; }
+      .c1 { fill: none; stroke: #A97808; stroke-width: 0.8; opacity: 0.15; }
+      .c2 { fill: none; stroke: #6F1028; stroke-width: 0.7; opacity: 0.1; }
+      .c3 { fill: #D9A928; opacity: 0.12; }
+      .c4 { fill: none; stroke: #D9A928; stroke-width: 0.6; opacity: 0.12; }
     </style>
   </defs>
   <!-- Outer ring -->
