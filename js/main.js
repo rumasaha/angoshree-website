@@ -10,7 +10,7 @@ let timeSlots = [];
 
 async function loadSiteData() {
   try {
-    const res = await fetch('/api/data');
+    const res = await fetch('/api/data?_=' + Date.now());
     siteData = await res.json();
   } catch {}
 
@@ -552,12 +552,10 @@ function populateContactInfo() {
   const mapEl = document.getElementById('storeMap');
   if (addrEl && c.address) addrEl.textContent = c.address;
   if (mapEl && c.mapsUrl) mapEl.href = c.mapsUrl;
-  const els = document.querySelectorAll('.contact-details p');
-  if (els.length >= 5) {
-    if (c.phone) els[1].textContent = c.phone;
-    if (c.whatsapp) els[2].textContent = c.whatsapp;
-    if (c.hours) els[4].textContent = c.hours;
-  }
+  const waContactEl = document.getElementById('storeWhatsappContact');
+  if (waContactEl && c.whatsapp) waContactEl.textContent = c.whatsapp;
+  const hoursEl = document.querySelector('.contact-details li:last-child p');
+  if (hoursEl && c.hours) hoursEl.textContent = c.hours;
   const ai = siteData.aboutImages;
   if (ai) {
     const mainEl = document.querySelector('.about-img-main');
