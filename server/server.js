@@ -4,6 +4,13 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -87,29 +94,47 @@ app.post('/api/data', (req, res) => {
 
 app.post('/api/upload', (req, res) => {
   if (!checkAuth(req, res)) return;
-  upload.single('image')(req, res, (err) => {
+  upload.single('image')(req, res, async (err) => {
     if (err) return res.status(400).json({ error: err.message });
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
-    res.json({ url: `uploads/${req.file.filename}` });
+    try {
+      const result = await cloudinary.uploader.upload(req.file.path, { folder: 'angoshree' });
+      fs.unlink(req.file.path, () => {});
+      res.json({ url: result.secure_url });
+    } catch (e) {
+      res.status(500).json({ error: 'Upload failed' });
+    }
   });
 });
 
 app.post('/api/upload-multiple', (req, res) => {
   if (!checkAuth(req, res)) return;
-  upload.array('images', 100)(req, res, (err) => {
+  upload.array('images', 100)(req, res, async (err) => {
     if (err) return res.status(400).json({ error: err.message });
     if (!req.files || req.files.length === 0) return res.status(400).json({ error: 'No files uploaded' });
-    const urls = req.files.map((f) => `uploads/${f.filename}`);
-    res.json({ urls });
+    try {
+      const urls = await Promise.all(req.files.map((f) =>
+        cloudinary.uploader.upload(f.path, { folder: 'angoshree' }).then((r) => { fs.unlink(f.path, () => {}); return r.secure_url; })
+      ));
+      res.json({ urls });
+    } catch (e) {
+      res.status(500).json({ error: 'Upload failed' });
+    }
   });
 });
 
 app.post('/api/upload-font', (req, res) => {
   if (!checkAuth(req, res)) return;
-  fontUpload.single('font')(req, res, (err) => {
+  fontUpload.single('font')(req, res, async (err) => {
     if (err) return res.status(400).json({ error: err.message });
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
-    res.json({ url: `uploads/${req.file.filename}` });
+    try {
+      const result = await cloudinary.uploader.upload(req.file.path, { folder: 'angoshree', resource_type: 'raw' });
+      fs.unlink(req.file.path, () => {});
+      res.json({ url: result.secure_url });
+    } catch (e) {
+      res.status(500).json({ error: 'Upload failed' });
+    }
   });
 });
 
