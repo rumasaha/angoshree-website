@@ -65,10 +65,9 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-bg);
-  background-image: 
-    radial-gradient(circle at 25% 25%, rgba(217, 169, 40, 0.06) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(111, 16, 40, 0.04) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(217, 169, 40, 0.04) 0%, transparent 40%);
+  background-image: url('/images/mandala-pattern.svg');
+  background-size: 600px 600px;
+  background-repeat: repeat;
   overflow-x: hidden;
 }
 

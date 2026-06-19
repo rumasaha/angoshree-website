@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs>
+    <style>
+      .c1 { fill: none; stroke: #A97808; stroke-width: 0.6; opacity: 0.08; }
+      .c2 { fill: none; stroke: #6F1028; stroke-width: 0.5; opacity: 0.05; }
+      .c3 { fill: #D9A928; opacity: 0.06; }
+      .c4 { fill: none; stroke: #D9A928; stroke-width: 0.4; opacity: 0.06; }
+    </style>
+  </defs>
+  <!-- Outer ring -->
+  <circle cx="300" cy="300" r="280" class="c1"/>
+  <circle cx="300" cy="300" r="260" class="c4"/>
+  <circle cx="300" cy="300" r="240" class="c1"/>
+  <!-- Petal layer 1 -->
+  <g class="c2">
+    <path d="M300 40 C340 100 400 80 420 150 C440 220 390 240 420 300 C450 360 420 380 390 430 C360 480 320 460 300 500 C280 460 240 480 210 430 C180 380 150 360 180 300 C210 240 160 220 180 150 C200 80 260 100 300 40 Z"/>
+    <path d="M300 560 C260 500 200 520 180 450 C160 380 210 360 180 300 C150 240 180 220 210 170 C240 120 280 140 300 100 C320 140 360 120 390 170 C420 220 450 240 420 300 C390 360 440 380 420 450 C400 520 340 500 300 560 Z"/>
+  </g>
+  <!-- Petal layer 2 (inner) -->
+  <g class="c1">
+    <path d="M300 80 C330 130 370 120 390 170 C410 220 380 240 390 290 C400 340 380 350 360 390 C340 430 320 420 300 450 C280 420 260 430 240 390 C220 350 200 340 210 290 C220 240 190 220 210 170 C230 120 270 130 300 80 Z"/>
+  </g>
+  <!-- Inner circles -->
+  <circle cx="300" cy="300" r="180" class="c4"/>
+  <circle cx="300" cy="300" r="140" class="c1"/>
+  <circle cx="300" cy="300" r="100" class="c4"/>
+  <circle cx="300" cy="300" r="60" class="c1"/>
+  <circle cx="300" cy="300" r="30" class="c4"/>
+  <!-- Center dot -->
+  <circle cx="300" cy="300" r="8" class="c3"/>
+  <!-- Corner floral motifs -->
+  <g class="c2">
+    <path d="M30 30 C50 10 70 30 60 50 C50 70 30 50 30 30 Z"/>
+    <path d="M570 30 C550 10 530 30 540 50 C550 70 570 50 570 30 Z"/>
+    <path d="M30 570 C50 590 70 570 60 550 C50 530 30 550 30 570 Z"/>
+    <path d="M570 570 C550 590 530 570 540 550 C550 530 570 550 570 570 Z"/>
+  </g>
+  <!-- Edge dots -->
+  <g class="c3">
+    <circle cx="300" cy="15" r="4"/>
+    <circle cx="300" cy="585" r="4"/>
+    <circle cx="15" cy="300" r="4"/>
+    <circle cx="585" cy="300" r="4"/>
+    <circle cx="80" cy="80" r="3"/>
+    <circle cx="520" cy="80" r="3"/>
+    <circle cx="80" cy="520" r="3"/>
+    <circle cx="520" cy="520" r="3"/>
+  </g>
+  <!-- Decorative border dashes -->
+  <g class="c4">
+    <circle cx="300" cy="275" r="2"/>
+    <circle cx="300" cy="325" r="2"/>
+    <circle cx="275" cy="300" r="2"/>
+    <circle cx="325" cy="300" r="2"/>
+    <circle cx="282" cy="282" r="2"/>
+    <circle cx="318" cy="282" r="2"/>
+    <circle cx="282" cy="318" r="2"/>
+    <circle cx="318" cy="318" r="2"/>
+  </g>
+  <!-- Small leaf motifs -->
+  <g class="c2">
+    <path d="M300 140 Q310 150 300 160 Q290 150 300 140 Z"/>
+    <path d="M300 460 Q310 450 300 440 Q290 450 300 460 Z"/>
+    <path d="M140 300 Q150 310 140 320 Q130 310 140 300 Z"/>
+    <path d="M460 300 Q450 310 460 320 Q470 310 460 300 Z"/>
+  </g>
+  <!-- Diagonal dots -->
+  <g class="c3">
+    <circle cx="160" cy="160" r="2.5"/>
+    <circle cx="440" cy="160" r="2.5"/>
+    <circle cx="160" cy="440" r="2.5"/>
+    <circle cx="440" cy="440" r="2.5"/>
+    <circle cx="200" cy="200" r="2"/>
+    <circle cx="400" cy="200" r="2"/>
+    <circle cx="200" cy="400" r="2"/>
+    <circle cx="400" cy="400" r="2"/>
+  </g>
+</svg>
