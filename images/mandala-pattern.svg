@@ -1,161 +1,85 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
-  <defs>
-    <style>
-      .g1 { fill: none; stroke: #A97808; stroke-width: 0.8; opacity: 0.25; }
-      .g2 { fill: none; stroke: #D9A928; stroke-width: 0.6; opacity: 0.2; }
-      .g3 { fill: none; stroke: #6F1028; stroke-width: 0.6; opacity: 0.15; }
-      .g4 { fill: #D9A928; opacity: 0.15; }
-      .g5 { fill: none; stroke: #A97808; stroke-width: 0.4; opacity: 0.2; }
-      .g6 { fill: #6F1028; opacity: 0.08; }
-    </style>
-  </defs>
+  <!-- Background fill for visibility testing -->
+  <rect width="800" height="800" fill="none"/>
   
-  <!-- Outer border ring -->
-  <circle cx="400" cy="400" r="380" class="g1"/>
-  <circle cx="400" cy="400" r="370" class="g2"/>
-  
-  <!-- Outer arch border (16 arches) -->
-  <g class="g1">
-    <path d="M400 20 Q430 50 400 60 Q370 50 400 20"/>
-    <path d="M543 91 Q558 125 538 140 Q515 120 543 91"/>
-    <path d="M680 200 Q700 235 678 250 Q655 235 680 200"/>
-    <path d="M740 360 Q760 390 735 400 Q710 390 740 360"/>
-    <path d="M740 440 Q760 410 735 400 Q710 410 740 440"/>
-    <path d="M680 600 Q700 565 678 550 Q655 565 680 600"/>
-    <path d="M543 709 Q558 675 538 660 Q515 680 543 709"/>
-    <path d="M400 780 Q430 750 400 740 Q370 750 400 780"/>
-    <path d="M257 709 Q242 675 262 660 Q285 680 257 709"/>
-    <path d="M120 600 Q100 565 122 550 Q145 565 120 600"/>
-    <path d="M60 440 Q40 410 65 400 Q90 410 60 440"/>
-    <path d="M60 360 Q40 390 65 400 Q90 390 60 360"/>
-    <path d="M120 200 Q100 235 122 250 Q145 235 120 200"/>
-    <path d="M257 91 Q242 125 262 140 Q285 120 257 91"/>
+  <!-- Outer border -->
+  <circle cx="400" cy="400" r="380" fill="none" stroke="#A97808" stroke-width="0.8" opacity="0.3"/>
+  <circle cx="400" cy="400" r="365" fill="none" stroke="#D9A928" stroke-width="0.5" opacity="0.25"/>
+
+  <!-- 16-fold lotus petals -->
+  <g fill="none" stroke="#6F1028" stroke-width="0.7" opacity="0.2">
+    <path d="M400 50 C425 90 445 110 400 130 C355 110 375 90 400 50"/>
+    <path d="M525 110 C542 145 558 165 518 175 C498 155 510 135 525 110"/>
+    <path d="M640 215 C657 250 668 275 633 282 C617 262 628 242 640 215"/>
+    <path d="M705 345 C715 380 720 405 685 408 C675 388 690 372 705 345"/>
+    <path d="M705 455 C715 420 720 395 685 392 C675 412 690 428 705 455"/>
+    <path d="M640 585 C657 550 668 525 633 518 C617 538 628 558 640 585"/>
+    <path d="M525 690 C542 655 558 635 518 625 C498 645 510 665 525 690"/>
+    <path d="M400 750 C425 710 445 690 400 670 C355 690 375 710 400 750"/>
+    <path d="M275 690 C258 655 242 635 282 625 C302 645 290 665 275 690"/>
+    <path d="M160 585 C143 550 132 525 167 518 C183 538 172 558 160 585"/>
+    <path d="M95 455 C85 420 80 395 115 392 C125 412 110 428 95 455"/>
+    <path d="M95 345 C85 380 80 405 115 408 C125 388 110 372 95 345"/>
+    <path d="M160 215 C143 250 132 275 167 282 C183 262 172 242 160 215"/>
+    <path d="M275 110 C258 145 242 165 282 175 C302 155 290 135 275 110"/>
   </g>
 
-  <!-- Ring of lotus petals (16 petals) -->
-  <g class="g3">
-    <path d="M400 60 C420 100 440 120 400 140 C360 120 380 100 400 60"/>
-    <path d="M530 123 C545 160 560 180 520 190 C500 170 515 150 530 123"/>
-    <path d="M650 230 C665 265 675 290 640 295 C625 275 635 255 650 230"/>
-    <path d="M710 370 C720 405 725 430 690 430 C680 410 695 395 710 370"/>
-    <path d="M710 430 C720 395 725 370 690 370 C680 390 695 405 710 430"/>
-    <path d="M650 570 C665 535 675 510 640 505 C625 525 635 545 650 570"/>
-    <path d="M530 677 C545 640 560 620 520 610 C500 630 515 650 530 677"/>
-    <path d="M400 740 C420 700 440 680 400 660 C360 680 380 700 400 740"/>
-    <path d="M270 677 C255 640 240 620 280 610 C300 630 285 650 270 677"/>
-    <path d="M150 570 C135 535 125 510 160 505 C175 525 165 545 150 570"/>
-    <path d="M90 430 C80 395 75 370 110 370 C120 390 105 405 90 430"/>
-    <path d="M90 370 C80 405 75 430 110 430 C120 410 105 395 90 370"/>
-    <path d="M150 230 C135 265 125 290 160 295 C175 275 165 255 150 230"/>
-    <path d="M270 123 C255 160 240 180 280 190 C300 170 285 150 270 123"/>
+  <!-- Inner petal ring -->
+  <g fill="none" stroke="#D9A928" stroke-width="0.6" opacity="0.2">
+    <path d="M400 95 C418 125 428 142 400 150 C372 142 382 125 400 95"/>
+    <path d="M492 143 C507 172 515 188 488 195 C471 182 478 167 492 143"/>
+    <path d="M585 242 C596 268 603 284 576 290 C562 274 572 258 585 242"/>
+    <path d="M638 355 C646 382 648 398 622 400 C615 385 625 370 638 355"/>
+    <path d="M638 445 C646 418 648 402 622 400 C615 415 625 430 638 445"/>
+    <path d="M585 558 C596 532 603 516 576 510 C562 526 572 542 585 558"/>
+    <path d="M492 657 C507 628 515 612 488 605 C471 618 478 633 492 657"/>
+    <path d="M400 705 C418 675 428 658 400 650 C372 658 382 675 400 705"/>
+    <path d="M308 657 C293 628 285 612 312 605 C329 618 322 633 308 657"/>
+    <path d="M215 558 C204 532 197 516 224 510 C238 526 228 542 215 558"/>
+    <path d="M162 445 C154 418 152 402 178 400 C185 415 175 430 162 445"/>
+    <path d="M162 355 C154 382 152 398 178 400 C185 385 175 370 162 355"/>
+    <path d="M215 242 C204 268 197 284 224 290 C238 274 228 258 215 242"/>
+    <path d="M308 143 C293 172 285 188 312 195 C329 182 322 167 308 143"/>
   </g>
 
-  <!-- Second petal ring (decorative) -->
-  <g class="g2">
-    <path d="M400 100 C415 130 425 145 400 155 C375 145 385 130 400 100"/>
-    <path d="M495 148 C508 175 515 190 490 197 C475 185 482 170 495 148"/>
-    <path d="M590 245 C600 270 605 285 580 290 C568 275 578 260 590 245"/>
-    <path d="M640 355 C648 380 650 395 625 398 C618 385 628 370 640 355"/>
-    <path d="M640 445 C648 420 650 405 625 402 C618 415 628 430 640 445"/>
-    <path d="M590 555 C600 530 605 515 580 510 C568 525 578 540 590 555"/>
-    <path d="M495 652 C508 625 515 610 490 603 C475 615 482 630 495 652"/>
-    <path d="M400 700 C415 670 425 655 400 645 C375 655 385 670 400 700"/>
-    <path d="M305 652 C292 625 285 610 310 603 C325 615 318 630 305 652"/>
-    <path d="M210 555 C200 530 195 515 220 510 C232 525 222 540 210 555"/>
-    <path d="M160 445 C152 420 150 405 175 402 C182 415 172 430 160 445"/>
-    <path d="M160 355 C152 380 150 395 175 398 C182 385 172 370 160 355"/>
-    <path d="M210 245 C200 270 195 290 220 295 C232 275 222 260 210 245"/>
-    <path d="M305 148 C292 175 285 190 310 197 C325 185 318 170 305 148"/>
+  <!-- Concentric rings -->
+  <circle cx="400" cy="400" r="280" fill="none" stroke="#A97808" stroke-width="0.8" opacity="0.25"/>
+  <circle cx="400" cy="400" r="230" fill="none" stroke="#D9A928" stroke-width="0.6" opacity="0.2"/>
+  <circle cx="400" cy="400" r="180" fill="none" stroke="#A97808" stroke-width="0.8" opacity="0.25"/>
+  <circle cx="400" cy="400" r="130" fill="none" stroke="#D9A928" stroke-width="0.6" opacity="0.2"/>
+  <circle cx="400" cy="400" r="80" fill="none" stroke="#A97808" stroke-width="0.7" opacity="0.25"/>
+  <circle cx="400" cy="400" r="35" fill="none" stroke="#D9A928" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- 8-point star -->
+  <g fill="none" stroke="#6F1028" stroke-width="0.6" opacity="0.18">
+    <polygon points="400,135 438,185 400,235 362,185"/>
+    <polygon points="535,268 568,305 535,342 502,305"/>
+    <polygon points="632,400 658,438 632,476 606,438"/>
+    <polygon points="535,532 568,495 535,458 502,495"/>
+    <polygon points="400,665 438,615 400,565 362,615"/>
+    <polygon points="265,532 232,495 265,458 298,495"/>
+    <polygon points="168,400 142,438 168,476 194,438"/>
+    <polygon points="265,268 232,305 265,342 298,305"/>
   </g>
 
-  <!-- Concentric guide rings -->
-  <circle cx="400" cy="400" r="280" class="g1"/>
-  <circle cx="400" cy="400" r="270" class="g5"/>
-  <circle cx="400" cy="400" r="230" class="g2"/>
-  <circle cx="400" cy="400" r="180" class="g1"/>
-  <circle cx="400" cy="400" r="140" class="g2"/>
-  <circle cx="400" cy="400" r="100" class="g1"/>
-  <circle cx="400" cy="400" r="60" class="g2"/>
-  <circle cx="400" cy="400" r="30" class="g1"/>
-
-  <!-- Geometric star/diamond pattern -->
-  <g class="g3">
-    <polygon points="400,130 440,180 400,230 360,180"/>
-    <polygon points="535,265 570,300 535,335 500,300"/>
-    <polygon points="635,400 660,435 635,470 610,435"/>
-    <polygon points="535,535 570,500 535,465 500,500"/>
-    <polygon points="400,670 440,620 400,570 360,620"/>
-    <polygon points="265,535 230,500 265,465 300,500"/>
-    <polygon points="165,400 140,435 165,470 190,435"/>
-    <polygon points="265,265 230,300 265,335 300,300"/>
-  </g>
-
-  <!-- Inner diamond lattice -->
-  <g class="g5">
-    <polygon points="400,180 440,220 400,260 360,220"/>
-    <polygon points="480,280 510,310 480,340 450,310"/>
-    <polygon points="560,400 585,430 560,460 535,430"/>
-    <polygon points="480,520 510,490 480,460 450,490"/>
-    <polygon points="400,620 440,580 400,540 360,580"/>
-    <polygon points="320,520 290,490 320,460 350,490"/>
-    <polygon points="240,400 215,430 240,460 265,430"/>
-    <polygon points="320,280 290,310 320,340 350,310"/>
-  </g>
-
-  <!-- Dots along cardinal axes -->
-  <g class="g4">
-    <circle cx="400" cy="170" r="4"/>
-    <circle cx="400" cy="630" r="4"/>
-    <circle cx="170" cy="400" r="4"/>
-    <circle cx="630" cy="400" r="4"/>
-    <circle cx="400" cy="250" r="3"/>
-    <circle cx="400" cy="550" r="3"/>
-    <circle cx="250" cy="400" r="3"/>
-    <circle cx="550" cy="400" r="3"/>
-  </g>
-
-  <!-- Diagonal dots -->
-  <g class="g4">
+  <!-- Gold dots -->
+  <g fill="#D9A928" opacity="0.2">
+    <circle cx="400" cy="165" r="4"/>
+    <circle cx="400" cy="635" r="4"/>
+    <circle cx="165" cy="400" r="4"/>
+    <circle cx="635" cy="400" r="4"/>
+    <circle cx="400" cy="240" r="3"/>
+    <circle cx="400" cy="560" r="3"/>
+    <circle cx="240" cy="400" r="3"/>
+    <circle cx="560" cy="400" r="3"/>
     <circle cx="240" cy="240" r="3"/>
     <circle cx="560" cy="240" r="3"/>
     <circle cx="240" cy="560" r="3"/>
     <circle cx="560" cy="560" r="3"/>
-    <circle cx="300" cy="300" r="2.5"/>
-    <circle cx="500" cy="300" r="2.5"/>
-    <circle cx="300" cy="500" r="2.5"/>
-    <circle cx="500" cy="500" r="2.5"/>
   </g>
 
-  <!-- Flower center -->
-  <g class="g4">
-    <circle cx="400" cy="400" r="8"/>
-  </g>
-  <g class="g6">
-    <circle cx="400" cy="400" r="15"/>
-  </g>
-
-  <!-- Small decorative dots between petals -->
-  <g class="g4">
-    <circle cx="465" cy="117" r="2"/>
-    <circle cx="520" cy="165" r="2"/>
-    <circle cx="570" cy="225" r="2"/>
-    <circle cx="610" cy="298" r="2"/>
-    <circle cx="625" cy="375" r="2"/>
-    <circle cx="625" cy="425" r="2"/>
-    <circle cx="610" cy="502" r="2"/>
-    <circle cx="570" cy="575" r="2"/>
-    <circle cx="520" cy="635" r="2"/>
-    <circle cx="465" cy="683" r="2"/>
-    <circle cx="400" cy="705" r="2"/>
-    <circle cx="335" cy="683" r="2"/>
-    <circle cx="280" cy="635" r="2"/>
-    <circle cx="230" cy="575" r="2"/>
-    <circle cx="190" cy="502" r="2"/>
-    <circle cx="175" cy="425" r="2"/>
-    <circle cx="175" cy="375" r="2"/>
-    <circle cx="190" cy="298" r="2"/>
-    <circle cx="230" cy="225" r="2"/>
-    <circle cx="280" cy="165" r="2"/>
-    <circle cx="335" cy="117" r="2"/>
-  </g>
+  <!-- Center flower -->
+  <circle cx="400" cy="400" r="8" fill="#D9A928" opacity="0.25"/>
+  <circle cx="400" cy="400" r="16" fill="none" stroke="#6F1028" stroke-width="0.6" opacity="0.2"/>
+  <circle cx="400" cy="400" r="3" fill="#A97808" opacity="0.3"/>
 </svg>
