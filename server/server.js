@@ -1,16 +1,23 @@
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
-const cloudinary = require('cloudinary').v2;
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
+const useCloudinary = !!(process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET);
+let cloudinary;
+if (useCloudinary) {
+  cloudinary = require('cloudinary').v2;
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+  console.log('Cloudinary configured for image uploads');
+} else {
+  console.log('Cloudinary not configured — saving uploads locally to /uploads/');
+}
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -86,11 +93,28 @@ app.get('/api/data', (_req, res) => {
   res.json(readData());
 });
 
+app.post('/api/login', (req, res) => {
+  const pass = req.body?.password || req.headers['x-admin-password'];
+  if (pass !== ADMIN_PASS) {
+    return res.status(401).json({ error: 'Wrong password' });
+  }
+  res.json({ success: true });
+});
+
 app.post('/api/data', (req, res) => {
   if (!checkAuth(req, res)) return;
   writeData(req.body);
   res.json({ success: true });
 });
+
+async function saveFile(file) {
+  if (useCloudinary) {
+    const result = await cloudinary.uploader.upload(file.path, { folder: 'angoshree' });
+    fs.unlink(file.path, () => {});
+    return result.secure_url;
+  }
+  return '/uploads/' + file.filename;
+}
 
 app.post('/api/upload', (req, res) => {
   if (!checkAuth(req, res)) return;
@@ -98,9 +122,8 @@ app.post('/api/upload', (req, res) => {
     if (err) return res.status(400).json({ error: err.message });
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
     try {
-      const result = await cloudinary.uploader.upload(req.file.path, { folder: 'angoshree' });
-      fs.unlink(req.file.path, () => {});
-      res.json({ url: result.secure_url });
+      const url = await saveFile(req.file);
+      res.json({ url });
     } catch (e) {
       res.status(500).json({ error: 'Upload failed' });
     }
@@ -113,9 +136,7 @@ app.post('/api/upload-multiple', (req, res) => {
     if (err) return res.status(400).json({ error: err.message });
     if (!req.files || req.files.length === 0) return res.status(400).json({ error: 'No files uploaded' });
     try {
-      const urls = await Promise.all(req.files.map((f) =>
-        cloudinary.uploader.upload(f.path, { folder: 'angoshree' }).then((r) => { fs.unlink(f.path, () => {}); return r.secure_url; })
-      ));
+      const urls = await Promise.all(req.files.map((f) => saveFile(f)));
       res.json({ urls });
     } catch (e) {
       res.status(500).json({ error: 'Upload failed' });
@@ -129,9 +150,12 @@ app.post('/api/upload-font', (req, res) => {
     if (err) return res.status(400).json({ error: err.message });
     if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
     try {
-      const result = await cloudinary.uploader.upload(req.file.path, { folder: 'angoshree', resource_type: 'raw' });
-      fs.unlink(req.file.path, () => {});
-      res.json({ url: result.secure_url });
+      if (useCloudinary) {
+        const result = await cloudinary.uploader.upload(req.file.path, { folder: 'angoshree', resource_type: 'raw' });
+        fs.unlink(req.file.path, () => {});
+        return res.json({ url: result.secure_url });
+      }
+      res.json({ url: '/uploads/' + req.file.filename });
     } catch (e) {
       res.status(500).json({ error: 'Upload failed' });
     }

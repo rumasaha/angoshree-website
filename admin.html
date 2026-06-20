@@ -306,6 +306,28 @@ async function restoreData(event) {
 }
 
 // Products
+async function uploadProductImage(input, index) {
+  const file = input.files?.[0];
+  if (!file) return;
+  const formData = new FormData();
+  formData.append('image', file);
+  try {
+    const res = await fetch(API + '/api/upload', {
+      method: 'POST',
+      headers: { 'x-admin-password': sessionStorage.getItem('ap') },
+      body: formData,
+    });
+    if (res.status === 401) { alert('Session expired. Re-login.'); logout(); return; }
+    const result = await res.json();
+    if (result.url) {
+      data.products[index].image = result.url;
+      renderProducts();
+      setStatus('Product photo uploaded! Save to keep.', true);
+    }
+  } catch { alert('Upload failed.'); }
+  input.value = '';
+}
+
 function renderProducts() {
   const list = document.getElementById('productsList');
   list.innerHTML = (data.products || []).map((p, i) => `
@@ -330,7 +352,13 @@ function renderProducts() {
           </div>
           <div><label>Badge</label><input value="${esc(p.badge||'')}" onchange="data.products[${i}].badge=this.value||null"></div>
         </div>
-        <div><label>Image URL</label><input value="${esc(p.image)}" onchange="data.products[${i}].image=this.value;renderProducts()"></div>
+        <div><label>Image</label>
+          <div style="display:flex;gap:8px">
+            <input value="${esc(p.image)}" id="productImageInput${i}" onchange="data.products[${i}].image=this.value;renderProducts()" style="margin-bottom:0">
+            <button class="add-btn" style="white-space:nowrap;flex-shrink:0" type="button" onclick="document.getElementById('productImageUpload${i}').click()">Upload Photo</button>
+          </div>
+        </div>
+        <input type="file" id="productImageUpload${i}" accept="image/*" hidden onchange="uploadProductImage(this, ${i})">
       </div>
     </div>
   `).join('');
@@ -533,7 +561,11 @@ function toggleFields(btn) {
 async function login() {
   const pass = document.getElementById('passwordInput').value;
   try {
-    const res = await fetch(API + '/api/data', { headers: { 'x-admin-password': pass } });
+    const res = await fetch(API + '/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pass }),
+    });
     if (res.status === 401) { document.getElementById('loginError').classList.remove('hidden'); return; }
     document.getElementById('loginError').classList.add('hidden');
     sessionStorage.setItem('ap', pass);
@@ -556,7 +588,11 @@ function logout() {
   const saved = sessionStorage.getItem('ap');
   if (saved) {
     try {
-      const res = await fetch(API + '/api/data', { headers: { 'x-admin-password': saved } });
+      const res = await fetch(API + '/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: saved }),
+      });
       if (res.ok) {
         document.getElementById('loginScreen').classList.add('hidden');
         document.getElementById('dashboard').classList.remove('hidden');
