@@ -67,8 +67,9 @@ body {
   color: var(--color-text);
   background-color: var(--color-bg);
   background-image: url('/images/mandala-pattern.svg');
-  background-size: 600px 600px;
-  background-repeat: repeat;
+  background-size: 90vmin;
+  background-repeat: no-repeat;
+  background-position: center center;
   overflow-x: hidden;
 }
 
