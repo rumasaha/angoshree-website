@@ -61,7 +61,7 @@ const fontUpload = multer({
   },
 });
 
-const DATA_FILE = path.join(__dirname, '..', 'data', 'data.json');
+const DATA_FILE = path.join(__dirname, '..', 'uploads', 'data.json');
 const DATA_DEFAULT = path.join(__dirname, '..', 'data', 'default.json');
 const ADMIN_PASS = process.env.ADMIN_PASSWORD || 'admin123';
 
