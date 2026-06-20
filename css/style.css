@@ -66,10 +66,10 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-bg);
-  background-image: url('https://images.unsplash.com/photo-1610030469983-98e550c7ec8e?w=1600&q=80');
-  background-size: contain;
+  background-image: url('/images/background-design.png');
+  background-size: 600px;
   background-repeat: no-repeat;
-  background-position: center top;
+  background-position: center center;
   overflow-x: hidden;
 }
 
