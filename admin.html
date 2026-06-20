@@ -352,10 +352,11 @@ function renderProducts() {
           </div>
           <div><label>Badge</label><input value="${esc(p.badge||'')}" onchange="data.products[${i}].badge=this.value||null"></div>
         </div>
-        <div><label>Image</label>
-          <div style="display:flex;gap:8px">
-            <input value="${esc(p.image)}" id="productImageInput${i}" onchange="data.products[${i}].image=this.value;renderProducts()" style="margin-bottom:0">
-            <button class="add-btn" style="white-space:nowrap;flex-shrink:0" type="button" onclick="document.getElementById('productImageUpload${i}').click()">Upload Photo</button>
+        <div>
+          <label>Photo</label>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="add-btn" style="white-space:nowrap" type="button" onclick="document.getElementById('productImageUpload${i}').click()">Upload Photo</button>
+            <span style="font-size:0.8rem;color:#999;overflow:hidden;text-overflow:ellipsis;max-width:200px">${esc(p.image)}</span>
           </div>
         </div>
         <input type="file" id="productImageUpload${i}" accept="image/*" hidden onchange="uploadProductImage(this, ${i})">
