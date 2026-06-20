@@ -33,6 +33,7 @@
 
   --gradient-gold: linear-gradient(135deg, #FFF0A3 0%, #FFD966 24%, #D9A928 58%, #A97808 100%);
   --gradient-red: #6F1028;
+  --gradient-red-bg: rgba(111, 16, 40, 0.96);
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'Outfit', system-ui, sans-serif;
@@ -201,7 +202,7 @@ button, input, textarea {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: var(--gradient-red);
+  background: var(--gradient-red-bg);
   backdrop-filter: blur(12px);
   border-bottom: 2px solid var(--gold-deep);
   transition: box-shadow var(--transition);
@@ -521,7 +522,7 @@ button, input, textarea {
 /* ===== Features ===== */
 .features {
   padding: 64px 0;
-  background: var(--gradient-red);
+  background: var(--gradient-red-bg);
   border-bottom: 2px solid var(--gold-deep);
 }
 
@@ -726,7 +727,7 @@ button, input, textarea {
   max-height: 70vh;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: var(--color-cream);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1077,7 +1078,7 @@ button, input, textarea {
 /* ===== Testimonials ===== */
 .testimonials {
   padding: 96px 0;
-  background: var(--gradient-red);
+  background: var(--gradient-red-bg);
   color: var(--color-white);
   border-top: 2px solid var(--gold-deep);
   border-bottom: 2px solid var(--gold-deep);
@@ -1324,7 +1325,7 @@ button, input, textarea {
 
 /* ===== Footer ===== */
 .footer {
-  background: var(--gradient-red);
+  background: var(--gradient-red-bg);
   color: rgba(255, 255, 255, 0.85);
   padding-top: 64px;
   border-top: 2px solid var(--gold-deep);

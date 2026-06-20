@@ -62,6 +62,7 @@ const fontUpload = multer({
 });
 
 const DATA_FILE = path.join(__dirname, '..', 'data', 'data.json');
+const DATA_DEFAULT = path.join(__dirname, '..', 'data', 'default.json');
 const ADMIN_PASS = process.env.ADMIN_PASSWORD || 'admin123';
 
 function checkAuth(req, res) {
@@ -77,7 +78,13 @@ function readData() {
   try {
     return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   } catch {
-    return {};
+    try {
+      const def = JSON.parse(fs.readFileSync(DATA_DEFAULT, 'utf8'));
+      writeData(def);
+      return def;
+    } catch {
+      return {};
+    }
   }
 }
 

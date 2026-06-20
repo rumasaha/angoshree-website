@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="600" viewBox="0 0 500 600">
+  <rect width="500" height="600" fill="#FFF8ED"/>
+  <text x="250" y="310" text-anchor="middle" fill="#6F1028" font-family="serif" font-size="16">Upload photo</text>
+</svg>
