@@ -196,13 +196,11 @@ function renderProducts(filter = 'all') {
     : products.filter((p) => p.category === filter);
 
   grid.innerHTML = filtered.map((product) => {
-    const catKey = 'products.' + product.category;
-    const catName = t(catKey);
     const prodName = _tt('product.name.' + product.id, product.name);
     const badgeText = product.badge ? _tt('badge.' + product.badge.toLowerCase().replace(/[^a-z0-9]/g,''), product.badge) : '';
 
     return `
-    <article class="product-card" data-category="${product.category}">
+    <article class="product-card">
       <div class="product-image">
         <img src="${product.image}" alt="${prodName}" loading="lazy">
         ${badgeText ? `<span class="product-badge">${badgeText}</span>` : ''}
@@ -212,7 +210,6 @@ function renderProducts(filter = 'all') {
         </div>
       </div>
       <div class="product-info">
-        <p class="product-category">${catName}</p>
         <h3>${prodName}</h3>
       </div>
     </article>`;
