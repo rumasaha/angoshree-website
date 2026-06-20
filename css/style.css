@@ -61,24 +61,16 @@ html {
 }
 
 body {
-  position: relative;
   font-family: var(--font-body);
   font-size: 20px;
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-bg);
+  background-image: url('https://images.unsplash.com/photo-1610030469983-98e550c7ec8e?w=1600&q=80');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center top;
   overflow-x: hidden;
-}
-
-#bg-mandala {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1200px;
-  max-width: none;
-  pointer-events: none;
-  z-index: 0;
 }
 
 img {
