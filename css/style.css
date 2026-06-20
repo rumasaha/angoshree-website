@@ -61,17 +61,26 @@ html {
 }
 
 body {
+  position: relative;
   font-family: var(--font-body);
   font-size: 20px;
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-bg);
-  background-image: url('/images/mandala-pattern.svg');
-  background-size: 1200px;
-  background-repeat: no-repeat;
-  background-position: center center;
   overflow-x: hidden;
 }
+
+#bg-mandala {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1200px;
+  max-width: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
 img {
   max-width: 100%;
   height: auto;
