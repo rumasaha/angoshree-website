@@ -109,9 +109,13 @@ app.post('/api/data', (req, res) => {
 
 async function saveFile(file) {
   if (useCloudinary) {
-    const result = await cloudinary.uploader.upload(file.path, { folder: 'angoshree' });
-    fs.unlink(file.path, () => {});
-    return result.secure_url;
+    try {
+      const result = await cloudinary.uploader.upload(file.path, { folder: 'angoshree' });
+      fs.unlink(file.path, () => {});
+      return result.secure_url;
+    } catch (e) {
+      console.log('Cloudinary upload failed, falling back to local:', e.message);
+    }
   }
   return '/uploads/' + file.filename;
 }
