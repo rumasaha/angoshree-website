@@ -66,20 +66,9 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background-color: var(--color-bg);
+  background-image: url('/images/background-design.png');
+  background-size: cover;
   overflow-x: hidden;
-}
-
-#bg-design {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center center;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.12;
 }
 
 img {
